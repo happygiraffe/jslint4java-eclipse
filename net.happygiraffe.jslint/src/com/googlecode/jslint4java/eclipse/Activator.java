@@ -1,4 +1,4 @@
-package net.happygiraffe.jslint;
+package com.googlecode.jslint4java.eclipse;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

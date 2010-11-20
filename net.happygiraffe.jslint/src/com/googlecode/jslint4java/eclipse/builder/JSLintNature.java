@@ -1,4 +1,4 @@
-package net.happygiraffe.jslint.builder;
+package com.googlecode.jslint4java.eclipse.builder;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;

@@ -1,4 +1,4 @@
-package net.happygiraffe.jslint;
+package com.googlecode.jslint4java.eclipse;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

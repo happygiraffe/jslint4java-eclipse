@@ -1,6 +1,5 @@
-package net.happygiraffe.jslint.ui.preferences;
+package com.googlecode.jslint4java.eclipse.ui.preferences;
 
-import net.happygiraffe.jslint.Activator;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -9,6 +8,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.googlecode.jslint4java.Option;
+import com.googlecode.jslint4java.eclipse.Activator;
 
 /**
  * This class represents a preference page that is contributed to the

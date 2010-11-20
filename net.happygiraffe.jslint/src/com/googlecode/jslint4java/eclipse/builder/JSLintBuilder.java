@@ -1,12 +1,10 @@
-package net.happygiraffe.jslint.builder;
+package com.googlecode.jslint4java.eclipse.builder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-import net.happygiraffe.jslint.Activator;
-import net.happygiraffe.jslint.JSLintLog;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -27,6 +25,8 @@ import com.googlecode.jslint4java.Issue;
 import com.googlecode.jslint4java.JSLint;
 import com.googlecode.jslint4java.JSLintResult;
 import com.googlecode.jslint4java.Option;
+import com.googlecode.jslint4java.eclipse.Activator;
+import com.googlecode.jslint4java.eclipse.JSLintLog;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
