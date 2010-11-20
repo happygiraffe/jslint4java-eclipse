@@ -64,7 +64,8 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    public static final String BUILDER_ID = "net.happygiraffe.jslint.jsLintBuilder";
+    // NB! Must match plugin.xml declaration.
+    public static final String BUILDER_ID = Activator.PLUGIN_ID + ".jsLintBuilder";
 
     // NB! Must match plugin.xml declaration.
     private static final String MARKER_TYPE = Activator.PLUGIN_ID

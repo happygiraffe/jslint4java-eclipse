@@ -23,7 +23,7 @@
          </run>
       </runtime>
       <builder
-            id="net.happygiraffe.jslint.jsLintBuilder">
+            id="com.googlecode.jslint4java.eclipse.jsLintBuilder">
       </builder>
    </extension>
    <extension
@@ -32,11 +32,11 @@
             adaptable="true"
             objectClass="org.eclipse.core.resources.IProject"
             nameFilter="*"
-            id="net.happygiraffe.jslint.contribution1">
+            id="com.googlecode.jslint4java.eclipse.contribution1">
          <action
                class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
                enablesFor="+"
-               id="net.happygiraffe.jslint.addRemoveNatureAction"
+               id="com.googlecode.jslint4java.eclipse.addRemoveNatureAction"
                label="Add/Remove JSLint Nature"
                menubarPath="additions">
          </action>
@@ -57,7 +57,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             class="com.googlecode.jslint4java.eclipse.ui.preferences.OptionsPreferencePage"
-            id="net.happygiraffe.jslint.ui.preferences.OptionsPreferencePage"
+            id="com.googlecode.jslint4java.eclipse.ui.OptionsPreferencePage"
             name="JSLint">
       </page>
    </extension>

@@ -6,12 +6,14 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
+import com.googlecode.jslint4java.eclipse.Activator;
+
 public class JSLintNature implements IProjectNature {
 
     /**
      * ID of this project nature
      */
-    public static final String NATURE_ID = "net.happygiraffe.jslint.jsLintNature";
+    public static final String NATURE_ID = Activator.PLUGIN_ID + ".jsLintNature";
 
     private IProject project;
 
