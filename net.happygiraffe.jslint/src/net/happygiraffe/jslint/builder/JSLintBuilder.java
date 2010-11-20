@@ -24,7 +24,8 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Preferences;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.IPreferencesService;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
@@ -150,9 +151,10 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     // Apply the global prefs to this JSLint object.
     private void applyPrefs(JSLint lint) {
         lint.resetOptions();
-        Preferences prefs = Activator.getDefault().getPluginPreferences();
+        IPreferencesService prefs = Platform.getPreferencesService();
         for (Option o : Option.values()) {
-            if (prefs.getBoolean(o.getLowerName())) {
+            boolean value = prefs.getBoolean(Activator.PLUGIN_ID, o.getLowerName(), false, null);
+            if (value) {
                 lint.addOption(o);
             }
         }
