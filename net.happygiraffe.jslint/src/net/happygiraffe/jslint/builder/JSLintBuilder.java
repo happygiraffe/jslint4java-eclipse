@@ -32,7 +32,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     class JSLintDeltaVisitor implements IResourceDeltaVisitor {
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
          */
         public boolean visit(IResourceDelta delta) throws CoreException {
@@ -85,7 +85,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.core.internal.events.InternalBuilder#build(int,
      *      java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
      */
@@ -139,12 +139,13 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         } catch (CoreException e) {
             JSLintLog.logError(e);
         } finally {
-            if (reader != null)
+            if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
                     JSLintLog.logError(e);
                 }
+            }
         }
     }
 
@@ -161,8 +162,9 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     }
 
     private JSLint getJSLint() throws IOException {
-        if (lint == null)
+        if (lint == null) {
             lint = new JSLint();
+        }
         return lint;
     }
 
