@@ -3,14 +3,10 @@ package net.happygiraffe.jslint.builder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Map;
 
 import net.happygiraffe.jslint.Activator;
-import net.happygiraffe.jslint.Issue;
-import net.happygiraffe.jslint.JSLint;
 import net.happygiraffe.jslint.JSLintLog;
-import net.happygiraffe.jslint.Option;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -26,6 +22,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
+
+import com.googlecode.jslint4java.Issue;
+import com.googlecode.jslint4java.JSLint;
+import com.googlecode.jslint4java.JSLintResult;
+import com.googlecode.jslint4java.Option;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
@@ -129,9 +130,9 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             applyPrefs(lint);
             reader = new BufferedReader(new InputStreamReader(file
                     .getContents()));
-            List<Issue> issues = lint.lint(file.getFullPath().toString(),
+            JSLintResult result = lint.lint(file.getFullPath().toString(),
                     reader);
-            for (Issue issue : issues) {
+            for (Issue issue : result.getIssues()) {
                 addMarker(file, issue);
             }
         } catch (IOException e) {
@@ -163,7 +164,8 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
     private JSLint getJSLint() throws IOException {
         if (lint == null) {
-            lint = new JSLint();
+            // TODO(dom): support alternate fulljslint.js
+            lint = new com.googlecode.jslint4java.JSLintBuilder().create();
         }
         return lint;
     }

@@ -1,11 +1,14 @@
 package net.happygiraffe.jslint.ui.preferences;
 
-import org.eclipse.jface.preference.*;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.IWorkbench;
 import net.happygiraffe.jslint.Activator;
-import net.happygiraffe.jslint.Option;
+
+import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPreferencePage;
+
+import com.googlecode.jslint4java.Option;
 
 /**
  * This class represents a preference page that is contributed to the
@@ -36,15 +39,17 @@ public class OptionsPreferencePage extends FieldEditorPreferencePage implements
     public void createFieldEditors() {
         Composite parent = getFieldEditorParent();
         for (Option o : Option.values()) {
-            BooleanFieldEditor ed = new BooleanFieldEditor(o.getLowerName(), o
-                    .getDescription(), parent);
-            addField(ed);
+            if (o.getType() == Boolean.class) {
+                BooleanFieldEditor ed = new BooleanFieldEditor(
+                        o.getLowerName(), o.getDescription(), parent);
+                addField(ed);
+            }
         }
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
      */
     public void init(IWorkbench workbench) {
