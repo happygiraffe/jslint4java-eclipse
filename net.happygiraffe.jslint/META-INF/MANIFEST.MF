@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JSLint Plug-in
+Bundle-SymbolicName: net.happygiraffe.jslint; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: jslint.jar,
+ lib/jslint4java-1.0+rhino.jar
+Bundle-Activator: net.happygiraffe.jslint.Activator
+Bundle-Vendor: HappyGiraffe
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources
+Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

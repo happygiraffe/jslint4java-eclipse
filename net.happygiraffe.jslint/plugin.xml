@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="jsLintBuilder"
+         name="JavaScript Lint Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="net.happygiraffe.jslint.builder.JSLintBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="jsLintNature"
+         name="JavaScript Lint Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="net.happygiraffe.jslint.builder.JSLintNature">
+         </run>
+      </runtime>
+      <builder
+            id="net.happygiraffe.jslint.jsLintBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            objectClass="org.eclipse.core.resources.IProject"
+            nameFilter="*"
+            id="net.happygiraffe.jslint.contribution1">
+         <action
+               class="net.happygiraffe.jslint.builder.ToggleNatureAction"
+               enablesFor="+"
+               id="net.happygiraffe.jslint.addRemoveNatureAction"
+               label="Add/Remove JSLint Nature"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+   <extension
+         id="javaScriptLintProblem"
+         name="JavaScript Lint Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.happygiraffe.jslint.ui.preferences.OptionsPreferencePage"
+            id="net.happygiraffe.jslint.ui.preferences.OptionsPreferencePage"
+            name="JSLint">
+      </page>
+   </extension>
+
+</plugin>

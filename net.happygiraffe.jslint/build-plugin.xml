@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<property name="plugin.name" value="net.happygiraffe.jslint" />
+	<property name="plugin.version" value="1.0.0" />
+	<property name="dest" location="${user.home}/Desktop" />
+
+	<target name="plugin_export">
+		<pde.exportPlugins destination="${dest}"
+		                   exportSource="true"
+		                   exportType="zip"
+		                   filename="${plugin.name}_${plugin.version}.zip"
+		                   plugins="${plugin.name}"
+		                   useJARFormat="true" />
+	</target>
+</project>
