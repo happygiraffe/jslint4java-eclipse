@@ -165,7 +165,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     private JSLint getJSLint() throws IOException {
         if (lint == null) {
             // TODO(dom): support alternate fulljslint.js
-            lint = new com.googlecode.jslint4java.JSLintBuilder().create();
+            lint = new com.googlecode.jslint4java.JSLintBuilder().fromDefault();
         }
         return lint;
     }
