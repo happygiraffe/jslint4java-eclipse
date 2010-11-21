@@ -111,7 +111,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         return null;
     }
 
-    void checkJavaScript(IResource resource) {
+    private void checkJavaScript(IResource resource) {
         if (!(resource instanceof IFile))
             return;
 
