@@ -78,6 +78,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             marker.setAttribute(IMarker.MESSAGE, issue.getReason());
             marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
             marker.setAttribute(IMarker.LINE_NUMBER, issue.getLine());
+            marker.setAttribute(IMarker.SOURCE_ID, "jslint4java");
             // JSLintLog.logInfo("Added marker for " + issue);
         } catch (CoreException e) {
             JSLintLog.logError(e);
