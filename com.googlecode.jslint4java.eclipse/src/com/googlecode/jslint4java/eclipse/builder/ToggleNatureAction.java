@@ -1,7 +1,7 @@
 package com.googlecode.jslint4java.eclipse.builder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -18,7 +18,7 @@ import com.googlecode.jslint4java.eclipse.JSLintLog;
 
 public class ToggleNatureAction implements IObjectActionDelegate {
 
-    private ISelection selection;
+    private IStructuredSelection selection;
 
     /*
      * (non-Javadoc)
@@ -26,21 +26,22 @@ public class ToggleNatureAction implements IObjectActionDelegate {
      * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
      */
     public void run(IAction action) {
-        if (selection instanceof IStructuredSelection) {
-            for (Iterator<?> it = ((IStructuredSelection) selection).iterator(); it
-                    .hasNext();) {
-                Object element = it.next();
-                IProject project = null;
-                if (element instanceof IProject) {
-                    project = (IProject) element;
-                } else if (element instanceof IAdaptable) {
-                    project = (IProject) ((IAdaptable) element)
-                            .getAdapter(IProject.class);
-                }
-                if (project != null) {
-                    toggleNature(project);
-                }
+        for (Object obj : selection.toArray()) {
+            IProject project = projectFromSelectedItem(obj);
+            if (project != null) {
+                toggleNature(project);
             }
+        }
+    }
+
+    /** Convert to a project, or return null. */
+    private IProject projectFromSelectedItem(Object obj) {
+        if (obj instanceof IProject) {
+            return (IProject) obj;
+        } else if (obj instanceof IAdaptable) {
+            return (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
+        } else {
+            return null;
         }
     }
 
@@ -51,7 +52,9 @@ public class ToggleNatureAction implements IObjectActionDelegate {
      *      org.eclipse.jface.viewers.ISelection)
      */
     public void selectionChanged(IAction action, ISelection selection) {
-        this.selection = selection;
+        if (selection instanceof IStructuredSelection) {
+            this.selection = (IStructuredSelection) selection;
+        }
     }
 
     /*
