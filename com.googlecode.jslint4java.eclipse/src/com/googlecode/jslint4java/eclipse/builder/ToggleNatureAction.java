@@ -11,12 +11,11 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IActionDelegate;
 
 import com.googlecode.jslint4java.eclipse.JSLintLog;
 
-public class ToggleNatureAction implements IObjectActionDelegate {
+public class ToggleNatureAction implements IActionDelegate {
 
     private IStructuredSelection selection;
 
@@ -44,9 +43,6 @@ public class ToggleNatureAction implements IObjectActionDelegate {
         if (selection instanceof IStructuredSelection) {
             this.selection = (IStructuredSelection) selection;
         }
-    }
-
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
     }
 
     /**
