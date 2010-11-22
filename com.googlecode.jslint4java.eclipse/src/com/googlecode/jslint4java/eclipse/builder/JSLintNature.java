@@ -26,6 +26,9 @@ public class JSLintNature implements IProjectNature {
 
     private IProject project;
 
+    /**
+     * Add the necessary builder commands for this nature.
+     */
     public void configure() throws CoreException {
         List<ICommand> cmds = getCommands();
         for (ICommand cmd : cmds) {
@@ -38,6 +41,9 @@ public class JSLintNature implements IProjectNature {
         setCommands(cmds);
     }
 
+    /**
+     * Remove the JSLint builder commands.
+     */
     public void deconfigure() throws CoreException {
         List<ICommand> cmds = getCommands();
         // Separate detection from removal to avoid a ConcurrentModificationException.
