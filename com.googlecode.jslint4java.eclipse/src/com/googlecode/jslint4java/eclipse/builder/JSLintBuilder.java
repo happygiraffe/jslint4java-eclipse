@@ -67,7 +67,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     public static final String BUILDER_ID = Activator.PLUGIN_ID + ".jsLintBuilder";
 
     // NB! Must match plugin.xml declaration.
-    private static final String MARKER_TYPE = Activator.PLUGIN_ID
+    public static final String MARKER_TYPE = Activator.PLUGIN_ID
             + ".javaScriptLintProblem";
 
     private JSLint lint;
@@ -114,12 +114,14 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     }
 
     private void checkJavaScript(IResource resource) {
-        if (!(resource instanceof IFile))
+        if (!(resource instanceof IFile)) {
             return;
+        }
 
         IFile file = (IFile) resource;
-        if (!file.getName().endsWith(".js"))
+        if (!file.getName().endsWith(".js")) {
             return;
+        }
 
         JSLintLog.logInfo("Checking file " + resource.getFullPath());
 

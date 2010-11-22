@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
 import com.googlecode.jslint4java.eclipse.JSLintLog;
@@ -28,6 +29,15 @@ public class NatureManager {
         project.setDescription(desc, null);
     }
 
+    /** Remove all markers we have made for this project. */
+    public void removeMarkers(IProject project) {
+        try {
+            project.deleteMarkers(JSLintBuilder.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
+        } catch (CoreException e) {
+            JSLintLog.logError(e);
+        }
+    }
+
     /** Enable or disable the JSLint nature on a project. */
     public void toggleNature(IProject project) {
         try {
@@ -35,6 +45,7 @@ public class NatureManager {
             if (natures.contains(JSLintNature.NATURE_ID)) {
                 // Remove the nature.
                 natures.remove(JSLintNature.NATURE_ID);
+                removeMarkers(project);
             } else {
                 // Add the nature.
                 natures.add(JSLintNature.NATURE_ID);
