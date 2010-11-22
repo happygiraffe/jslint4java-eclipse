@@ -1,5 +1,11 @@
 package com.googlecode.jslint4java.eclipse.builder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -8,6 +14,9 @@ import org.eclipse.core.runtime.CoreException;
 
 import com.googlecode.jslint4java.eclipse.Activator;
 
+/**
+ * This nature indicates that a project supports validation through JSLint.
+ */
 public class JSLintNature implements IProjectNature {
 
     /**
@@ -18,41 +27,52 @@ public class JSLintNature implements IProjectNature {
     private IProject project;
 
     public void configure() throws CoreException {
-        IProjectDescription desc = project.getDescription();
-        ICommand[] commands = desc.getBuildSpec();
-
-        for (int i = 0; i < commands.length; ++i) {
-            if (commands[i].getBuilderName().equals(JSLintBuilder.BUILDER_ID)) {
+        List<ICommand> cmds = getCommands();
+        for (ICommand cmd : cmds) {
+            if (cmd.getBuilderName().equals(JSLintBuilder.BUILDER_ID)) {
                 return;
             }
         }
 
-        ICommand[] newCommands = new ICommand[commands.length + 1];
-        System.arraycopy(commands, 0, newCommands, 0, commands.length);
-        ICommand command = desc.newCommand();
-        command.setBuilderName(JSLintBuilder.BUILDER_ID);
-        newCommands[newCommands.length - 1] = command;
-        desc.setBuildSpec(newCommands);
-        project.setDescription(desc, null);
+        cmds.add(newCommand(JSLintBuilder.BUILDER_ID));
+        setCommands(cmds);
     }
 
     public void deconfigure() throws CoreException {
-        IProjectDescription description = getProject().getDescription();
-        ICommand[] commands = description.getBuildSpec();
-        for (int i = 0; i < commands.length; ++i) {
-            if (commands[i].getBuilderName().equals(JSLintBuilder.BUILDER_ID)) {
-                ICommand[] newCommands = new ICommand[commands.length - 1];
-                System.arraycopy(commands, 0, newCommands, 0, i);
-                System.arraycopy(commands, i + 1, newCommands, i,
-                        commands.length - i - 1);
-                description.setBuildSpec(newCommands);
-                return;
+        List<ICommand> cmds = getCommands();
+        // Separate detection from removal to avoid a ConcurrentModificationException.
+        Set<ICommand> togo = new HashSet<ICommand>();
+        for (ICommand cmd : cmds) {
+            if (cmd.getBuilderName().equals(JSLintBuilder.BUILDER_ID)) {
+                togo.add(cmd);
             }
         }
+        cmds.removeAll(togo);
+        setCommands(cmds);
+    }
+
+    /** Return a (mutable) list of commands (builders) in the current project. */
+    private List<ICommand> getCommands() throws CoreException {
+        IProjectDescription desc = project.getDescription();
+        return new ArrayList<ICommand>(Arrays.asList(desc.getBuildSpec()));
     }
 
     public IProject getProject() {
         return project;
+    }
+
+    /** Make a new command (builder)*/
+    private ICommand newCommand(String builderName) throws CoreException {
+        ICommand cmd = project.getDescription().newCommand();
+        cmd.setBuilderName(builderName);
+        return cmd;
+    }
+
+    /** Set the list of commands (builders) for this project. */
+    private void setCommands(List<ICommand> commands) throws CoreException {
+        IProjectDescription desc = project.getDescription();
+        desc.setBuildSpec(commands.toArray(new ICommand[commands.size()]));
+        project.setDescription(desc, null);
     }
 
     public void setProject(IProject project) {
