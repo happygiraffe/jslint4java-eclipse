@@ -1,6 +1,8 @@
 package com.googlecode.jslint4java.eclipse.builder;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -12,13 +14,15 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
+import com.googlecode.jslint4java.eclipse.JSLintLog;
+
 public class ToggleNatureAction implements IObjectActionDelegate {
 
     private ISelection selection;
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
      */
     public void run(IAction action) {
@@ -42,7 +46,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
      *      org.eclipse.jface.viewers.ISelection)
      */
@@ -52,7 +56,7 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.IObjectActionDelegate#setActivePart(org.eclipse.jface.action.IAction,
      *      org.eclipse.ui.IWorkbenchPart)
      */
@@ -61,35 +65,25 @@ public class ToggleNatureAction implements IObjectActionDelegate {
 
     /**
      * Toggles sample nature on a project
-     * 
+     *
      * @param project
      *                to have sample nature added or removed
      */
     private void toggleNature(IProject project) {
         try {
             IProjectDescription description = project.getDescription();
-            String[] natures = description.getNatureIds();
-
-            for (int i = 0; i < natures.length; ++i) {
-                if (JSLintNature.NATURE_ID.equals(natures[i])) {
-                    // Remove the nature
-                    String[] newNatures = new String[natures.length - 1];
-                    System.arraycopy(natures, 0, newNatures, 0, i);
-                    System.arraycopy(natures, i + 1, newNatures, i,
-                            natures.length - i - 1);
-                    description.setNatureIds(newNatures);
-                    project.setDescription(description, null);
-                    return;
-                }
+            List<String> natures = new ArrayList<String>(Arrays.asList(description.getNatureIds()));
+            if (natures.contains(JSLintNature.NATURE_ID)) {
+                // Remove the nature.
+                natures.remove(JSLintNature.NATURE_ID);
+            } else {
+                // Add the nature.
+                natures.add(JSLintNature.NATURE_ID);
             }
-
-            // Add the nature
-            String[] newNatures = new String[natures.length + 1];
-            System.arraycopy(natures, 0, newNatures, 0, natures.length);
-            newNatures[natures.length] = JSLintNature.NATURE_ID;
-            description.setNatureIds(newNatures);
+            description.setNatureIds(natures.toArray(new String[natures.size()]));
             project.setDescription(description, null);
         } catch (CoreException e) {
+            JSLintLog.logError(e);
         }
     }
 
