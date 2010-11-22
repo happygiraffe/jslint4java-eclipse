@@ -92,8 +92,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
      *      java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
      */
     @Override
-    @SuppressWarnings("unchecked")
-    protected IProject[] build(final int kind, Map args,
+    protected IProject[] build(final int kind, @SuppressWarnings("rawtypes") Map args,
             IProgressMonitor monitor) throws CoreException {
         ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
             public void run(IProgressMonitor monitor) throws CoreException {
