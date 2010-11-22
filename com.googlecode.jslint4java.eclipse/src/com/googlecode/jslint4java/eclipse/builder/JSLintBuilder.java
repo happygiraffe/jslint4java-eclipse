@@ -74,11 +74,13 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
     private void addMarker(IFile file, Issue issue) {
         try {
-            IMarker marker = file.createMarker(MARKER_TYPE);
-            marker.setAttribute(IMarker.MESSAGE, issue.getReason());
-            marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
-            marker.setAttribute(IMarker.LINE_NUMBER, issue.getLine());
-            marker.setAttribute(IMarker.SOURCE_ID, "jslint4java");
+            IMarker m = file.createMarker(MARKER_TYPE);
+            if (m.exists()) {
+                m.setAttribute(IMarker.MESSAGE, issue.getReason());
+                m.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_WARNING);
+                m.setAttribute(IMarker.LINE_NUMBER, issue.getLine());
+                m.setAttribute(IMarker.SOURCE_ID, "jslint4java");
+            }
             // JSLintLog.logInfo("Added marker for " + issue);
         } catch (CoreException e) {
             JSLintLog.logError(e);
