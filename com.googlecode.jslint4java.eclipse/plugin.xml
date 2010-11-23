@@ -36,15 +36,23 @@
          <action
                class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
                enablesFor="+"
-               id="com.googlecode.jslint4java.eclipse.addRemoveNatureAction"
-               label="Add/Remove JSLint Nature"
+               id="com.googlecode.jslint4java.eclipse.addNatureAction"
+               label="Add JSLint Nature"
                menubarPath="additions">
          </action>
          <visibility>
-            <objectState
-                  name="open"
-                  value="true">
-            </objectState>
+            <and>
+               <objectState
+                     name="open"
+                     value="true">
+               </objectState>
+               <not>
+                  <objectState
+                        name="projectNature"
+                        value="com.googlecode.jslint4java.eclipse.jsLintNature">
+                  </objectState>
+               </not>
+            </and>
          </visibility>
       </objectContribution>
    </extension>
