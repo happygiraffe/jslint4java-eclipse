@@ -55,6 +55,29 @@
             </and>
          </visibility>
       </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.googlecode.jslint4java.eclipse.contribution2"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
+               enablesFor="+"
+               id="com.googlecode.jslint4java.eclipse.removeJSLintNature"
+               label="Remove JSLint Nature">
+         </action>
+         <visibility>
+            <and>
+               <objectState
+                     name="open"
+                     value="true">
+               </objectState>
+               <objectState
+                     name="projectNature"
+                     value="com.googlecode.jslint4java.eclipse.jsLintNature">
+               </objectState>
+            </and>
+         </visibility>
+      </objectContribution>
    </extension>
    <extension
          id="javaScriptLintProblem"
