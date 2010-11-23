@@ -40,6 +40,12 @@
                label="Add/Remove JSLint Nature"
                menubarPath="additions">
          </action>
+         <visibility>
+            <objectState
+                  name="open"
+                  value="true">
+            </objectState>
+         </visibility>
       </objectContribution>
    </extension>
    <extension
