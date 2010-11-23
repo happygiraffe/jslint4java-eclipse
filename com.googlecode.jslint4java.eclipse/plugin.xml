@@ -4,7 +4,7 @@
 
    <extension
          id="jsLintBuilder"
-         name="JavaScript Lint Builder"
+         name="jslint4java Builder"
          point="org.eclipse.core.resources.builders">
       <builder
             hasNature="true">
@@ -15,7 +15,7 @@
    </extension>
    <extension
          id="jsLintNature"
-         name="JavaScript Lint Nature"
+         name="jslint4java Nature"
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
@@ -37,7 +37,7 @@
                class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
                enablesFor="+"
                id="com.googlecode.jslint4java.eclipse.addNatureAction"
-               label="Add JSLint Nature"
+               label="Enable jslint4java"
                menubarPath="additions">
          </action>
          <visibility>
@@ -63,7 +63,7 @@
                class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
                enablesFor="+"
                id="com.googlecode.jslint4java.eclipse.removeJSLintNature"
-               label="Remove JSLint Nature">
+               label="Disable jslint4java">
          </action>
          <visibility>
             <and>
@@ -81,7 +81,7 @@
    </extension>
    <extension
          id="javaScriptLintProblem"
-         name="JavaScript Lint Problem"
+         name="jslint4java Problem"
          point="org.eclipse.core.resources.markers">
       <super
             type="org.eclipse.core.resources.problemmarker">
@@ -95,7 +95,7 @@
       <page
             class="com.googlecode.jslint4java.eclipse.ui.preferences.OptionsPreferencePage"
             id="com.googlecode.jslint4java.eclipse.ui.OptionsPreferencePage"
-            name="JSLint">
+            name="jslint4java">
       </page>
    </extension>
 

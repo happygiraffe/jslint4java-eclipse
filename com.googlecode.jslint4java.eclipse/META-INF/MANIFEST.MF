@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JSLint Plug-in
+Bundle-Name: jslint4java plugin
 Bundle-SymbolicName: com.googlecode.jslint4java.eclipse;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: jslint.jar,
