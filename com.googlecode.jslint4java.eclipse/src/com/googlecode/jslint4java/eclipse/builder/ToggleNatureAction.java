@@ -5,9 +5,10 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IActionDelegate;
+import org.eclipse.ui.IObjectActionDelegate;
+import org.eclipse.ui.IWorkbenchPart;
 
-public class ToggleNatureAction implements IActionDelegate {
+public class ToggleNatureAction implements IObjectActionDelegate {
 
     private IStructuredSelection selection;
 
@@ -36,6 +37,9 @@ public class ToggleNatureAction implements IActionDelegate {
         if (selection instanceof IStructuredSelection) {
             this.selection = (IStructuredSelection) selection;
         }
+    }
+
+    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
     }
 
 }
