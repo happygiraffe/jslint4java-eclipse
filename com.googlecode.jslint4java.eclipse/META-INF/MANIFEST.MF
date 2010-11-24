@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: jslint4java plugin
 Bundle-SymbolicName: com.googlecode.jslint4java.eclipse;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-ClassPath: jslint.jar,
+Bundle-ClassPath: jslint4java-plugin.jar,
  lib/jslint4java-1.4.4.jar
 Bundle-Activator: com.googlecode.jslint4java.eclipse.Activator
 Bundle-Vendor: HappyGiraffe
