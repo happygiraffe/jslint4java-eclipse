@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.googlecode.jslint4java.eclipse.feature"
+      id="com.googlecode.jslint4java.eclipse"
       label="jslint4java"
       version="1.0.0"
       provider-name="HappyGiraffe">
