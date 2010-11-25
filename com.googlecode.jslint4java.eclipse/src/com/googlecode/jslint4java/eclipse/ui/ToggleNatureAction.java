@@ -1,4 +1,4 @@
-package com.googlecode.jslint4java.eclipse.builder;
+package com.googlecode.jslint4java.eclipse.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
@@ -7,6 +7,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+
+import com.googlecode.jslint4java.eclipse.builder.NatureManager;
 
 public class ToggleNatureAction implements IObjectActionDelegate {
 

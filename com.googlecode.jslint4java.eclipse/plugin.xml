@@ -34,7 +34,7 @@
             nameFilter="*"
             id="com.googlecode.jslint4java.eclipse.contribution1">
          <action
-               class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
+               class="com.googlecode.jslint4java.eclipse.ui.ToggleNatureAction"
                enablesFor="+"
                id="com.googlecode.jslint4java.eclipse.addNatureAction"
                label="Enable jslint4java"
@@ -60,7 +60,7 @@
             id="com.googlecode.jslint4java.eclipse.contribution2"
             objectClass="org.eclipse.core.resources.IProject">
          <action
-               class="com.googlecode.jslint4java.eclipse.builder.ToggleNatureAction"
+               class="com.googlecode.jslint4java.eclipse.ui.ToggleNatureAction"
                enablesFor="+"
                id="com.googlecode.jslint4java.eclipse.removeJSLintNature"
                label="Disable jslint4java">
