@@ -27,59 +27,6 @@
       </builder>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            objectClass="org.eclipse.core.resources.IProject"
-            nameFilter="*"
-            id="com.googlecode.jslint4java.eclipse.contribution1">
-         <action
-               class="com.googlecode.jslint4java.eclipse.ui.ToggleNatureAction"
-               enablesFor="+"
-               id="com.googlecode.jslint4java.eclipse.addNatureAction"
-               label="Enable jslint4java"
-               menubarPath="additions">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="open"
-                     value="true">
-               </objectState>
-               <not>
-                  <objectState
-                        name="projectNature"
-                        value="com.googlecode.jslint4java.eclipse.jsLintNature">
-                  </objectState>
-               </not>
-            </and>
-         </visibility>
-      </objectContribution>
-      <objectContribution
-            adaptable="false"
-            id="com.googlecode.jslint4java.eclipse.contribution2"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="com.googlecode.jslint4java.eclipse.ui.ToggleNatureAction"
-               enablesFor="+"
-               id="com.googlecode.jslint4java.eclipse.removeJSLintNature"
-               label="Disable jslint4java">
-         </action>
-         <visibility>
-            <and>
-               <objectState
-                     name="open"
-                     value="true">
-               </objectState>
-               <objectState
-                     name="projectNature"
-                     value="com.googlecode.jslint4java.eclipse.jsLintNature">
-               </objectState>
-            </and>
-         </visibility>
-      </objectContribution>
-   </extension>
-   <extension
          id="javaScriptLintProblem"
          name="jslint4java Problem"
          point="org.eclipse.core.resources.markers">
@@ -89,14 +36,6 @@
       <persistent
             value="true">
       </persistent>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="com.googlecode.jslint4java.eclipse.ui.preferences.OptionsPreferencePage"
-            id="com.googlecode.jslint4java.eclipse.ui.OptionsPreferencePage"
-            name="jslint4java">
-      </page>
    </extension>
 
 </plugin>

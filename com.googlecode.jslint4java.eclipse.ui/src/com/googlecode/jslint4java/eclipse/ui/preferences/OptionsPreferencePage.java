@@ -11,7 +11,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.googlecode.jslint4java.Option;
 import com.googlecode.jslint4java.StringArray;
-import com.googlecode.jslint4java.eclipse.Activator;
+import com.googlecode.jslint4java.eclipse.ui.Activator;
 
 /**
  * This class represents a preference page that is contributed to the Preferences dialog. By

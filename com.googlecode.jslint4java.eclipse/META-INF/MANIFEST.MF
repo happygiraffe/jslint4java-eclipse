@@ -7,8 +7,9 @@ Bundle-ClassPath: jslint4java-plugin.jar,
  lib/jslint4java-1.4.4.jar
 Bundle-Activator: com.googlecode.jslint4java.eclipse.Activator
 Bundle-Vendor: HappyGiraffe
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: com.googlecode.jslint4java,
+ com.googlecode.jslint4java.eclipse.builder
