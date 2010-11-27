@@ -29,7 +29,6 @@ public class OptionsPreferencePage extends FieldEditorPreferencePage implements
     public OptionsPreferencePage() {
         super(GRID);
         setPreferenceStore(Activator.getDefault().getPreferenceStore());
-        // setDescription("JSLint Options");
     }
 
     /**
