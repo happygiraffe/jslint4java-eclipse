@@ -5,7 +5,6 @@ import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -38,15 +37,14 @@ public class OptionsPreferencePage extends FieldEditorPreferencePage implements
      */
     @Override
     public void createFieldEditors() {
-        Composite parent = getFieldEditorParent();
         for (Option o : Option.values()) {
             FieldEditor ed = null;
             if (o.getType() == Boolean.class) {
-                ed = new BooleanFieldEditor(o.getLowerName(), o.getDescription(), parent);
+                ed = new BooleanFieldEditor(o.getLowerName(), o.getDescription(), getFieldEditorParent());
             } else if (o.getType() == Integer.class ) {
-                ed = new IntegerFieldEditor(o.getLowerName(), o.getDescription(), parent);
+                ed = new IntegerFieldEditor(o.getLowerName(), o.getDescription(), getFieldEditorParent());
             } else if (o.getType() == StringArray.class) {
-                ed = new StringFieldEditor(o.getLowerName(), o.getDescription(), parent);
+                ed = new StringFieldEditor(o.getLowerName(), o.getDescription(), getFieldEditorParent());
             }
             if (ed != null) {
                 addField(ed);
