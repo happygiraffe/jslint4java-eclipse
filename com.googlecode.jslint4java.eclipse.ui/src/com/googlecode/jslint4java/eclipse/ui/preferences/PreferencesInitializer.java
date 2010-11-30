@@ -1,4 +1,4 @@
-package com.googlecode.jslint4java.eclipse;
+package com.googlecode.jslint4java.eclipse.ui.preferences;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 
 import com.googlecode.jslint4java.Option;
+import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
 
 /**
  * Set up the default preferences.  By default,we enable:
@@ -24,7 +25,7 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
 
     @Override
     public void initializeDefaultPreferences() {
-        IEclipsePreferences node = new DefaultScope().getNode(JSLintPlugin.PLUGIN_ID);
+        IEclipsePreferences node = new DefaultScope().getNode(JSLintUIPlugin.PLUGIN_ID);
         for (Option o : defaultEnable) {
             node.putBoolean(o.getLowerName(), true);
         }
