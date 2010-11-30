@@ -24,8 +24,8 @@ import com.googlecode.jslint4java.Issue;
 import com.googlecode.jslint4java.JSLint;
 import com.googlecode.jslint4java.JSLintResult;
 import com.googlecode.jslint4java.Option;
-import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 import com.googlecode.jslint4java.eclipse.JSLintLog;
+import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
@@ -159,10 +159,14 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         lint.resetOptions();
         IPreferencesService prefs = Platform.getPreferencesService();
         for (Option o : Option.values()) {
-            boolean value = prefs.getBoolean(JSLintPlugin.PLUGIN_ID, o.getLowerName(), false, null);
-            if (value) {
-                lint.addOption(o);
+            if (o.getType() == Boolean.class) {
+                boolean value = prefs.getBoolean(JSLintPlugin.PLUGIN_ID, o.getLowerName(), false,
+                        null);
+                if (value) {
+                    lint.addOption(o);
+                }
             }
+            // TODO: implement other option types.
         }
     }
 
