@@ -1,6 +1,9 @@
 package com.googlecode.jslint4java.eclipse.ui.preferences;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -28,6 +31,25 @@ import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
 public class OptionsPreferencePage extends FieldEditorPreferencePage implements
         IWorkbenchPreferencePage {
 
+    /** Sort boolean options first. Within an option type, sort according to the regular order. */
+    private static final class BooleanFirstOptionComparator implements Comparator<Option> {
+        public int compare(Option o1, Option o2) {
+            if (o1.getType() == Boolean.class) {
+                if (o2.getType() == Boolean.class) {
+                    return o1.compareTo(o2); // Usual enum order
+                } else {
+                    return -1; // Bool comes first.
+                }
+            } else {
+                if (o2.getType() == Boolean.class) {
+                    return 1; // Bool comes first.
+                } else {
+                    return o1.compareTo(o2);
+                }
+            }
+        }
+    }
+
     public OptionsPreferencePage() {
         super(GRID);
         setPreferenceStore(JSLintUIPlugin.getDefault().getPreferenceStore());
@@ -40,17 +62,9 @@ public class OptionsPreferencePage extends FieldEditorPreferencePage implements
      */
     @Override
     public void createFieldEditors() {
-        // Try to order so that booleans come first on their own.
-        List<Option> bools = new ArrayList<Option>();
-        List<Option> others = new ArrayList<Option>();
-        for (Option o : Option.values()) {
-            (o.getType() == Boolean.class ? bools : others).add(o);
-        }
-        // The order we create the field editors is the order they end up being shown in.
-        for (Option o : bools) {
-            addField(makeFieldEditor(o));
-        }
-        for (Option o : others) {
+        List<Option> optionsList = new ArrayList<Option>(Arrays.asList(Option.values()));
+        Collections.sort(optionsList, new BooleanFirstOptionComparator());
+        for (Option o : optionsList) {
             FieldEditor fe = makeFieldEditor(o);
             if (fe != null) {
                 addField(fe);
