@@ -1,7 +1,12 @@
 package com.googlecode.jslint4java.eclipse.ui;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.BundleContext;
+
+import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -13,7 +18,9 @@ public class JSLintUIPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static JSLintUIPlugin plugin;
-	
+
+    private IPreferenceStore preferenceStore;
+
 	/**
 	 * The constructor
 	 */
@@ -47,4 +54,18 @@ public class JSLintUIPlugin extends AbstractUIPlugin {
 		return plugin;
 	}
 
+    /**
+     * Override the default implementation in order to store prefs in the correct scope.
+     *
+     * @see JSLintPlugin#PLUGIN_ID
+     */
+    @Override
+    public IPreferenceStore getPreferenceStore() {
+        // Create the preference store lazily.
+        if (preferenceStore == null) {
+            preferenceStore = new ScopedPreferenceStore(new InstanceScope(), JSLintPlugin.PLUGIN_ID);
+
+        }
+        return preferenceStore;
+    }
 }

@@ -37,5 +37,11 @@
             value="true">
       </persistent>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.googlecode.jslint4java.eclipse.preferences.PreferencesInitializer">
+      </initializer>
+   </extension>
 
 </plugin>
