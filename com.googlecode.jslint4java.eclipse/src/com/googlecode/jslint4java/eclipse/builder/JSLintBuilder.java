@@ -24,7 +24,7 @@ import com.googlecode.jslint4java.Issue;
 import com.googlecode.jslint4java.JSLint;
 import com.googlecode.jslint4java.JSLintResult;
 import com.googlecode.jslint4java.Option;
-import com.googlecode.jslint4java.eclipse.Activator;
+import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 import com.googlecode.jslint4java.eclipse.JSLintLog;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
@@ -64,10 +64,10 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     }
 
     // NB! Must match plugin.xml declaration.
-    public static final String BUILDER_ID = Activator.PLUGIN_ID + ".jsLintBuilder";
+    public static final String BUILDER_ID = JSLintPlugin.PLUGIN_ID + ".jsLintBuilder";
 
     // NB! Must match plugin.xml declaration.
-    public static final String MARKER_TYPE = Activator.PLUGIN_ID
+    public static final String MARKER_TYPE = JSLintPlugin.PLUGIN_ID
             + ".javaScriptLintProblem";
 
     private JSLint lint;
@@ -159,7 +159,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         lint.resetOptions();
         IPreferencesService prefs = Platform.getPreferencesService();
         for (Option o : Option.values()) {
-            boolean value = prefs.getBoolean(Activator.PLUGIN_ID, o.getLowerName(), false, null);
+            boolean value = prefs.getBoolean(JSLintPlugin.PLUGIN_ID, o.getLowerName(), false, null);
             if (value) {
                 lint.addOption(o);
             }

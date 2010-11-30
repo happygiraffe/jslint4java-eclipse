@@ -12,7 +12,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
-import com.googlecode.jslint4java.eclipse.Activator;
+import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
 /**
  * This nature indicates that a project supports validation through JSLint.
@@ -22,7 +22,7 @@ public class JSLintNature implements IProjectNature {
     /**
      * ID of this project nature
      */
-    public static final String NATURE_ID = Activator.PLUGIN_ID + ".jsLintNature";
+    public static final String NATURE_ID = JSLintPlugin.PLUGIN_ID + ".jsLintNature";
 
     private IProject project;
 

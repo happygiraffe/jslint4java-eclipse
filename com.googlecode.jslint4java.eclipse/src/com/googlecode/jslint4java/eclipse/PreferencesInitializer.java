@@ -24,7 +24,7 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
 
     @Override
     public void initializeDefaultPreferences() {
-        IEclipsePreferences node = new DefaultScope().getNode(Activator.PLUGIN_ID);
+        IEclipsePreferences node = new DefaultScope().getNode(JSLintPlugin.PLUGIN_ID);
         for (Option o : defaultEnable) {
             node.putBoolean(o.getLowerName(), true);
         }

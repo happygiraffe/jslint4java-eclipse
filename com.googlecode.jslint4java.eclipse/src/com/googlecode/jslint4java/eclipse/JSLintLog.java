@@ -25,10 +25,10 @@ public class JSLintLog {
 
     public static IStatus createStatus(int severity, int code, String message,
             Throwable t) {
-        return new Status(severity, Activator.PLUGIN_ID, code, message, t);
+        return new Status(severity, JSLintPlugin.PLUGIN_ID, code, message, t);
     }
 
     public static void log(IStatus status) {
-        Activator.getDefault().getLog().log(status);
+        JSLintPlugin.getDefault().getLog().log(status);
     }
 }
