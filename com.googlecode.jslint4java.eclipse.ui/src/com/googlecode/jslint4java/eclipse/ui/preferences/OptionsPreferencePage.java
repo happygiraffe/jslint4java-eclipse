@@ -26,8 +26,8 @@ import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
  * This page is used to modify preferences only. They are stored in the preference store that
  * belongs to the main plug-in class. That way, preferences can be accessed directly via the
  * preference store.
+ * <p>TODO: trigger a rebuild on change.
  */
-
 public class OptionsPreferencePage extends FieldEditorPreferencePage implements
         IWorkbenchPreferencePage {
 

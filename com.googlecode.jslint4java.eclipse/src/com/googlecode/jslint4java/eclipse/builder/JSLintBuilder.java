@@ -131,6 +131,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         BufferedReader reader = null;
         try {
             JSLint lint = getJSLint();
+            // TODO: this should react to changes in the prefs pane instead.
             applyPrefs(lint);
             reader = new BufferedReader(new InputStreamReader(file
                     .getContents()));
