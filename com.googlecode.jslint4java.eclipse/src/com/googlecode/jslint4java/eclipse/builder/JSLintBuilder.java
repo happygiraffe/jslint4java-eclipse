@@ -70,7 +70,11 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     public static final String MARKER_TYPE = JSLintPlugin.PLUGIN_ID
             + ".javaScriptLintProblem";
 
-    private JSLint lint;
+    private final JSLintProvider lintProvider = new JSLintProvider();
+
+    public JSLintBuilder() {
+        lintProvider.init();
+    }
 
     private void addMarker(IFile file, Issue issue) {
         try {
@@ -130,7 +134,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
         BufferedReader reader = null;
         try {
-            JSLint lint = getJSLint();
+            JSLint lint = lintProvider.getJsLint();
             // TODO: this should react to changes in the prefs pane instead.
             applyPrefs(lint);
             reader = new BufferedReader(new InputStreamReader(file
@@ -169,14 +173,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             }
             // TODO: implement other option types.
         }
-    }
-
-    private JSLint getJSLint() throws IOException {
-        if (lint == null) {
-            // TODO(dom): support alternate fulljslint.js
-            lint = new com.googlecode.jslint4java.JSLintBuilder().fromDefault();
-        }
-        return lint;
     }
 
     private void deleteMarkers(IFile file) {
