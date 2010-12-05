@@ -27,6 +27,12 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
     class JSLintDeltaVisitor implements IResourceDeltaVisitor {
+        private final IProgressMonitor monitor;
+
+        public JSLintDeltaVisitor(IProgressMonitor monitor) {
+            this.monitor = monitor;
+        }
+
         /*
          * (non-Javadoc)
          *
@@ -37,6 +43,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             switch (delta.getKind()) {
             case IResourceDelta.ADDED:
                 // handle added resource
+                logProgress(monitor, resource);
                 checkJavaScript(resource);
                 break;
             case IResourceDelta.REMOVED:
@@ -44,6 +51,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
                 break;
             case IResourceDelta.CHANGED:
                 // handle changed resource
+                logProgress(monitor, resource);
                 checkJavaScript(resource);
                 break;
             }
@@ -53,7 +61,14 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     }
 
     class JSLintResourceVisitor implements IResourceVisitor {
+        private final IProgressMonitor monitor;
+
+        public JSLintResourceVisitor(IProgressMonitor monitor) {
+            this.monitor = monitor;
+        }
+
         public boolean visit(IResource resource) {
+            logProgress(monitor, resource);
             checkJavaScript(resource);
             // return true to continue visiting children.
             return true;
@@ -124,8 +139,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             return;
         }
 
-        JSLintLog.info("Checking file %s", resource.getFullPath());
-
         // Clear out any existing problems.
         deleteMarkers(file);
 
@@ -163,18 +176,28 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    protected void fullBuild(final IProgressMonitor monitor)
-            throws CoreException {
+    protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
         try {
-            getProject().accept(new JSLintResourceVisitor());
+            monitor.beginTask("jslint4java", IProgressMonitor.UNKNOWN);
+            getProject().accept(new JSLintResourceVisitor(monitor));
         } catch (CoreException e) {
             JSLintLog.error(e);
+        } finally {
+            monitor.done();
         }
     }
 
-    protected void incrementalBuild(IResourceDelta delta,
-            IProgressMonitor monitor) throws CoreException {
-        // the visitor does the work.
-        delta.accept(new JSLintDeltaVisitor());
+    protected void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
+            throws CoreException {
+        try {
+            monitor.beginTask("jslint4java", IProgressMonitor.UNKNOWN);
+            delta.accept(new JSLintDeltaVisitor(monitor));
+        } finally {
+            monitor.done();
+        }
+    }
+
+    private void logProgress(IProgressMonitor monitor, IResource resource) {
+        monitor.subTask("Linting " + resource.getName());
     }
 }
