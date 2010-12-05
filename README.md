@@ -8,7 +8,6 @@ Dominic Mitchell <dom@happygiraffe.net>
 TODO
 ----
 
- * Make non-boolean properties work correctly.
  * Automatically perform a full rebuild on a preferences change.
  * Add a project properties page to allow per-project customisation.
  * Redesign the preferences page to not be _quite_ so long.

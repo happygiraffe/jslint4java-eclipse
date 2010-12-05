@@ -56,14 +56,10 @@ public class JSLintProvider {
         lint.resetOptions();
         IPreferencesService prefs = Platform.getPreferencesService();
         for (Option o : Option.values()) {
-            if (o.getType() == Boolean.class) {
-                boolean value = prefs.getBoolean(JSLintPlugin.PLUGIN_ID, o.getLowerName(), false,
-                        null);
-                if (value) {
-                    lint.addOption(o);
-                }
+            String value = prefs.getString(JSLintPlugin.PLUGIN_ID, o.getLowerName(), null, null);
+            if (value != null) {
+                lint.addOption(o, value);
             }
-            // TODO: implement other option types.
         }
     }
 }
