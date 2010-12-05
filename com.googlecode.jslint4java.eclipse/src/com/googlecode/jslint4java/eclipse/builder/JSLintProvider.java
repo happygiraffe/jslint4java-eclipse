@@ -34,7 +34,7 @@ public class JSLintProvider {
         x.addPreferenceChangeListener(new IPreferenceChangeListener() {
             public void preferenceChange(PreferenceChangeEvent ev) {
                 jsLint = null;
-                JSLintLog.logInfo(String.format("pref %s changed; nulling jsLint", ev.getKey()));
+                JSLintLog.info(String.format("pref %s changed; nulling jsLint", ev.getKey()));
             }
         });
     }

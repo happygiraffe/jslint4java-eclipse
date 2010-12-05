@@ -7,15 +7,15 @@ public class JSLintLog {
 
     // TODO How to get debug logging?
     
-    public static void logInfo(String message) {
+    public static void info(String message) {
         log(IStatus.INFO, IStatus.OK, message, null);
     }
 
-    public static void logError(Throwable t) {
+    public static void error(Throwable t) {
         log(IStatus.ERROR, IStatus.OK, "Unexpected exception", t);
     }
 
-    public static void logError(String message, Throwable t) {
+    public static void error(String message, Throwable t) {
         log(IStatus.ERROR, IStatus.OK, message, t);
     }
 

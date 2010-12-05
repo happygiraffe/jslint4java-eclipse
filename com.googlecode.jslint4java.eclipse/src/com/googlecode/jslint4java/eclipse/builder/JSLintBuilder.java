@@ -87,7 +87,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             }
             // JSLintLog.logInfo("Added marker for " + issue);
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         }
     }
 
@@ -127,7 +127,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             return;
         }
 
-        JSLintLog.logInfo("Checking file " + resource.getFullPath());
+        JSLintLog.info("Checking file " + resource.getFullPath());
 
         // Clear out any existing problems.
         deleteMarkers(file);
@@ -145,15 +145,15 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
                 addMarker(file, issue);
             }
         } catch (IOException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    JSLintLog.logError(e);
+                    JSLintLog.error(e);
                 }
             }
         }
@@ -179,7 +179,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         try {
             file.deleteMarkers(MARKER_TYPE, false, IResource.DEPTH_ZERO);
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         }
     }
 
@@ -188,7 +188,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         try {
             getProject().accept(new JSLintResourceVisitor());
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         }
     }
 

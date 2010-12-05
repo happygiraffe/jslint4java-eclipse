@@ -34,7 +34,7 @@ public class NatureManager {
         try {
             project.deleteMarkers(JSLintBuilder.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         }
     }
 
@@ -52,7 +52,7 @@ public class NatureManager {
             }
             setNatures(project, natures);
         } catch (CoreException e) {
-            JSLintLog.logError(e);
+            JSLintLog.error(e);
         }
     }
 
