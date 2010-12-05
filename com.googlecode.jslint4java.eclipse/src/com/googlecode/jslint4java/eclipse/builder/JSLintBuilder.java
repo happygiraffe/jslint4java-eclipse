@@ -34,11 +34,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             this.monitor = monitor;
         }
 
-        /*
-         * (non-Javadoc)
-         *
-         * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
-         */
         public boolean visit(IResourceDelta delta) throws CoreException {
             IResource resource = delta.getResource();
             switch (delta.getKind()) {
@@ -104,12 +99,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.eclipse.core.internal.events.InternalBuilder#build(int,
-     *      java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-     */
     @Override
     protected IProject[] build(final int kind, @SuppressWarnings("rawtypes") Map args,
             IProgressMonitor monitor) throws CoreException {
