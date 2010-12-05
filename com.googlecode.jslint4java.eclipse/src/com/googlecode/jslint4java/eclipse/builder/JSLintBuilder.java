@@ -25,6 +25,9 @@ import com.googlecode.jslint4java.JSLintResult;
 import com.googlecode.jslint4java.eclipse.JSLintLog;
 import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
+/**
+ * A “Builder” which invokes {@link JSLint} on each affected JavaScript in the project.
+ */
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
     private class JSLintDeltaVisitor implements IResourceDeltaVisitor {
