@@ -17,13 +17,10 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.IPreferencesService;
 
 import com.googlecode.jslint4java.Issue;
 import com.googlecode.jslint4java.JSLint;
 import com.googlecode.jslint4java.JSLintResult;
-import com.googlecode.jslint4java.Option;
 import com.googlecode.jslint4java.eclipse.JSLintLog;
 import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
@@ -136,7 +133,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         try {
             JSLint lint = lintProvider.getJsLint();
             // TODO: this should react to changes in the prefs pane instead.
-            applyPrefs(lint);
             reader = new BufferedReader(new InputStreamReader(file
                     .getContents()));
             JSLintResult result = lint.lint(file.getFullPath().toString(),
@@ -156,22 +152,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
                     JSLintLog.error(e);
                 }
             }
-        }
-    }
-
-    // Apply the global prefs to this JSLint object.
-    private void applyPrefs(JSLint lint) {
-        lint.resetOptions();
-        IPreferencesService prefs = Platform.getPreferencesService();
-        for (Option o : Option.values()) {
-            if (o.getType() == Boolean.class) {
-                boolean value = prefs.getBoolean(JSLintPlugin.PLUGIN_ID, o.getLowerName(), false,
-                        null);
-                if (value) {
-                    lint.addOption(o);
-                }
-            }
-            // TODO: implement other option types.
         }
     }
 
