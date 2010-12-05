@@ -125,7 +125,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
 
         IFile file = (IFile) resource;
-        if (!file.getName().endsWith(".js")) {
+        if (!shoudLint(file)) {
             return;
         }
 
@@ -150,6 +150,10 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         } finally {
             close(reader);
         }
+    }
+
+    private boolean shoudLint(IFile file) {
+        return file.getName().endsWith(".js");
     }
 
     private void close(Closeable close) {
