@@ -183,7 +183,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
     protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
         try {
-            monitor.beginTask("jslint4java", IProgressMonitor.UNKNOWN);
+            startProgress(monitor);
             getProject().accept(new JSLintResourceVisitor(monitor));
         } catch (CoreException e) {
             JSLintLog.error(e);
@@ -195,11 +195,15 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     protected void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
             throws CoreException {
         try {
-            monitor.beginTask("jslint4java", IProgressMonitor.UNKNOWN);
+            startProgress(monitor);
             delta.accept(new JSLintDeltaVisitor(monitor));
         } finally {
             monitor.done();
         }
+    }
+
+    private void startProgress(IProgressMonitor monitor) {
+        monitor.beginTask("jslint4java", IProgressMonitor.UNKNOWN);
     }
 
     private void logProgress(IProgressMonitor monitor, IResource resource) {
