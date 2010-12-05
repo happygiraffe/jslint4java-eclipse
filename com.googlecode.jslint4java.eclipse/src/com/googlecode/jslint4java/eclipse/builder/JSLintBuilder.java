@@ -27,7 +27,7 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
-    class JSLintDeltaVisitor implements IResourceDeltaVisitor {
+    private class JSLintDeltaVisitor implements IResourceDeltaVisitor {
         private final IProgressMonitor monitor;
 
         public JSLintDeltaVisitor(IProgressMonitor monitor) {
@@ -56,7 +56,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    class JSLintResourceVisitor implements IResourceVisitor {
+    private class JSLintResourceVisitor implements IResourceVisitor {
         private final IProgressMonitor monitor;
 
         public JSLintResourceVisitor(IProgressMonitor monitor) {
@@ -170,7 +170,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
+    private void fullBuild(final IProgressMonitor monitor) throws CoreException {
         try {
             startProgress(monitor);
             getProject().accept(new JSLintResourceVisitor(monitor));
@@ -181,7 +181,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    protected void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
+    private void incrementalBuild(IResourceDelta delta, IProgressMonitor monitor)
             throws CoreException {
         try {
             startProgress(monitor);
