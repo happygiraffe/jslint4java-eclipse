@@ -1,6 +1,7 @@
 package com.googlecode.jslint4java.eclipse.builder;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
@@ -158,13 +159,17 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         } catch (CoreException e) {
             JSLintLog.error(e);
         } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    JSLintLog.error(e);
-                }
-            }
+            close(reader);
+        }
+    }
+
+    private void close(Closeable close) {
+        if (close == null) {
+            return;
+        }
+        try {
+            close.close();
+        } catch (IOException e) {
         }
     }
 
