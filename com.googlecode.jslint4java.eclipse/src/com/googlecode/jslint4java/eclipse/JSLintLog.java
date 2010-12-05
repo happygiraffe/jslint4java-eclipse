@@ -6,8 +6,12 @@ import org.eclipse.core.runtime.Status;
 public class JSLintLog {
 
     // TODO How to get debug logging?
-    
-    public static void info(String message) {
+
+    /**
+     * Format and log a message.
+     */
+    public static void info(String message, Object... args) {
+        message = String.format(message, args);
         log(IStatus.INFO, IStatus.OK, message, null);
     }
 

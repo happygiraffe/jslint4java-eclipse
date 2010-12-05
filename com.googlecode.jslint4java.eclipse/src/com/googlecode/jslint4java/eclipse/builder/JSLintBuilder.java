@@ -127,7 +127,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             return;
         }
 
-        JSLintLog.info("Checking file " + resource.getFullPath());
+        JSLintLog.info("Checking file %s", resource.getFullPath());
 
         // Clear out any existing problems.
         deleteMarkers(file);
