@@ -1,7 +1,5 @@
 package com.googlecode.jslint4java.eclipse.builder;
 
-import java.io.IOException;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
@@ -45,14 +43,9 @@ public class JSLintProvider {
      */
     public JSLint getJsLint() {
         if (jsLint == null) {
-            try {
-                // TODO: Allow for non-default versions of fulljslint.js.
-                jsLint = builder.fromDefault();
-                configure();
-            } catch (IOException e) {
-                // should never happen…
-                throw new RuntimeException(e);
-            }
+            // TODO: Allow for non-default versions of fulljslint.js.
+            jsLint = builder.fromDefault();
+            configure();
         }
         return jsLint;
     }
