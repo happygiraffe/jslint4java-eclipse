@@ -69,9 +69,14 @@
             id="com.googlecode.jslint4java.eclipse.ui.preferences.optionsPropertyPage"
             name="jslint4java">
          <enabledWhen>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
+            <and>
+               <instanceof
+                     value="org.eclipse.core.resources.IProject">
+               </instanceof>
+               <test
+                     property="org.eclipse.jdt.launching.hasProjectNature"
+                     args="com.googlecode.jslint4java.eclipse.jsLintNature"/>
+            </and>
          </enabledWhen>
       </page>
    </extension>
