@@ -2,9 +2,7 @@ package com.googlecode.jslint4java.eclipse.builder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
@@ -27,14 +25,10 @@ public class CommandManager {
      */
     public void addTo(IProject project) throws CoreException {
         List<ICommand> cmds = getCommands(project);
-        for (ICommand cmd : cmds) {
-            if (cmd.getBuilderName().equals(builderId)) {
-                return;
-            }
+        if (!cmds.contains(builderId)) {
+            cmds.add(newCommand(project, builderId));
+            setCommands(project, cmds);
         }
-
-        cmds.add(newCommand(project, builderId));
-        setCommands(project, cmds);
     }
 
     /** Return a (mutable) list of commands (builders) in a project. */
@@ -53,15 +47,10 @@ public class CommandManager {
     /** Remove the JSLint commands from a project. */
     public void removeFrom(IProject project) throws CoreException {
         List<ICommand> cmds = getCommands(project);
-        // Separate detection from removal to avoid a ConcurrentModificationException.
-        Set<ICommand> togo = new HashSet<ICommand>();
-        for (ICommand cmd : cmds) {
-            if (cmd.getBuilderName().equals(builderId)) {
-                togo.add(cmd);
-            }
+        if (cmds.contains(builderId)) {
+            cmds.remove(builderId);
+            setCommands(project, cmds);
         }
-        cmds.removeAll(togo);
-        setCommands(project, cmds);
     }
 
     /** Set the list of commands (builders) for a project. */
