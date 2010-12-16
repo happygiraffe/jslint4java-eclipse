@@ -12,9 +12,11 @@ import org.eclipse.core.runtime.CoreException;
 import com.googlecode.jslint4java.eclipse.JSLintLog;
 
 /**
- * Manage adding and removing the nature from a project.
+ * Manage adding and removing the JSLint nature from a project.
  */
 public class NatureManager {
+
+    private final String natureId = JSLintNature.NATURE_ID;
 
     /** Return a mutable list of natures on this project. */
     private List<String> getNatures(IProject project) throws CoreException {
@@ -42,13 +44,13 @@ public class NatureManager {
     public void toggleNature(IProject project) {
         try {
             List<String> natures = getNatures(project);
-            if (natures.contains(JSLintNature.NATURE_ID)) {
+            if (natures.contains(natureId)) {
                 // Remove the nature.
-                natures.remove(JSLintNature.NATURE_ID);
+                natures.remove(natureId);
                 removeMarkers(project);
             } else {
                 // Add the nature.
-                natures.add(JSLintNature.NATURE_ID);
+                natures.add(natureId);
             }
             setNatures(project, natures);
         } catch (CoreException e) {

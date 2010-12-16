@@ -15,7 +15,7 @@ public class JSLintNature implements IProjectNature {
     /** ID of this project nature. */
     public static final String NATURE_ID = JSLintPlugin.PLUGIN_ID + ".jsLintNature";
 
-    private final CommandManager commandManager = new CommandManager(JSLintBuilder.BUILDER_ID);
+    private final CommandManager commandManager = new CommandManager();
     private IProject project;
 
     /**

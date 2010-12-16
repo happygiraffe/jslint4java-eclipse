@@ -10,15 +10,11 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 
 /**
- * A helper class for managing a builder (aka command) in a project.
+ * A helper class for managing the JSLint builder (aka command) in a project.
  */
 public class CommandManager {
 
-    private final String builderId;
-
-    public CommandManager(String builderId) {
-        this.builderId = builderId;
-    }
+    private final String builderId = JSLintBuilder.BUILDER_ID;
 
     /**
      * Add the JSLint build commands to a project.  If it already has them, no change will be made.
