@@ -2,6 +2,8 @@ package com.googlecode.jslint4java.eclipse.ui.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -35,15 +37,20 @@ public class OptionsPreferencePage extends PreferencePage implements
 
     @Override
     protected Control createContents(Composite parent) {
+        Font font = parent.getFont();
+
         Composite main = new Composite(parent, SWT.NULL);
+        main.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         GridLayout layout = new GridLayout();
         layout.numColumns = 1;
         layout.marginHeight = 0;
         layout.marginWidth = 0;
         main.setLayout(layout);
+        main.setFont(font);
 
         Label info = new Label(main, SWT.NONE);
         info.setText("nothing to see here");
+        info.setFont(font);
         return main;
     }
 
