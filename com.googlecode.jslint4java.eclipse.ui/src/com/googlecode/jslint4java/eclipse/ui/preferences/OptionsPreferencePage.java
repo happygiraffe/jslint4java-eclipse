@@ -1,8 +1,6 @@
 package com.googlecode.jslint4java.eclipse.ui.preferences;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jface.preference.PreferencePage;
@@ -75,13 +73,11 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
                 // Nothing to do on dispose
             }
 
+            // Make an entry for each option
             public Object[] getElements(Object inputElement) {
-                // Make an entry for each option
-                Option[] elements = (Option[]) inputElement;
-                Option[] results = new Option[elements.length];
-                System.arraycopy(elements, 0, results, 0, elements.length);
-                Collections.sort(Arrays.asList(results));
-                return results;
+                @SuppressWarnings("unchecked")
+                List<Option> elements = (List<Option>) inputElement;
+                return elements.toArray();
             }
 
             public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
@@ -117,21 +113,21 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     }
 
     private void populateBooleansArea() {
-        Option[] options = getBooleanOptions();
+        List<Option> options = getBooleanOptions();
         checkboxViewer.setInput(options);
         // for (int i = 0; i < options.length; i++) {
         // checkboxViewer.setChecked(options[i], options[i]..isEnabled());
         // }
     }
 
-    private Option[] getBooleanOptions() {
+    private List<Option> getBooleanOptions() {
         List<Option> options = new ArrayList<Option>();
         for (Option o : Option.values()) {
             if (o.getType() == Boolean.class) {
                 options.add(o);
             }
         }
-        return options.toArray(new Option[options.size()]);
+        return options;
     }
 
 }
