@@ -41,31 +41,6 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         setPreferenceStore(JSLintUIPlugin.getDefault().getPreferenceStore());
     }
 
-    public void init(IWorkbench workbench) {
-    }
-
-    @Override
-    protected Control createContents(Composite parent) {
-        Font font = parent.getFont();
-
-        Composite main = new Composite(parent, SWT.NULL);
-        main.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 1;
-        layout.marginHeight = 0;
-        layout.marginWidth = 0;
-        main.setLayout(layout);
-        main.setFont(font);
-
-        Label info = new Label(main, SWT.NONE);
-        info.setText("nothing to see here");
-        info.setFont(font);
-
-        createBooleansArea(main);
-
-        return main;
-    }
-
     private void createBooleansArea(Composite main) {
         Font mainFont = main.getFont();
         Composite booleansParent = new Composite(main, SWT.NONE);
@@ -97,9 +72,6 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
                 // Nothing to do on dispose
             }
 
-            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-            }
-
             public Object[] getElements(Object inputElement) {
                 // Make an entry for each option
                 Option[] elements = (Option[]) inputElement;
@@ -108,8 +80,36 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
                 Collections.sort(Arrays.asList(results));
                 return results;
             }
+
+            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            }
         });
 
+    }
+
+    @Override
+    protected Control createContents(Composite parent) {
+        Font font = parent.getFont();
+
+        Composite main = new Composite(parent, SWT.NULL);
+        main.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 1;
+        layout.marginHeight = 0;
+        layout.marginWidth = 0;
+        main.setLayout(layout);
+        main.setFont(font);
+
+        Label info = new Label(main, SWT.NONE);
+        info.setText("nothing to see here");
+        info.setFont(font);
+
+        createBooleansArea(main);
+
+        return main;
+    }
+
+    public void init(IWorkbench workbench) {
     }
 
 }
