@@ -64,7 +64,8 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         checkboxViewer.setLabelProvider(new LabelProvider() {
             @Override
             public String getText(Object element) {
-                return ((Option) element).getDescription();
+                Option o = (Option) element;
+                return String.format("%s [%s]", o.getDescription(), o.getLowerName());
             }
         });
         checkboxViewer.getTable().setFont(mainFont);
