@@ -115,9 +115,19 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     private void populateBooleansArea() {
         List<Option> options = getBooleanOptions();
         checkboxViewer.setInput(options);
-        // for (int i = 0; i < options.length; i++) {
-        // checkboxViewer.setChecked(options[i], options[i]..isEnabled());
-        // }
+        for (Option option : options) {
+            checkboxViewer.setChecked(option, valueOfBooleanPref(option));
+        }
+    }
+
+    /** Read the value of a boolean pref. */
+    private boolean valueOfBooleanPref(Option option) {
+        return getPreferenceStore().getBoolean(nameOfPref(option));
+    }
+
+    /** The preference name an option should use. */
+    private String nameOfPref(Option option) {
+        return option.getLowerName();
     }
 
     private List<Option> getBooleanOptions() {
