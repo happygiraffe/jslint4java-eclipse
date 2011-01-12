@@ -1,6 +1,13 @@
 package com.googlecode.jslint4java.eclipse.ui.preferences;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
@@ -11,6 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import com.googlecode.jslint4java.Option;
 import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
 
 /**
@@ -24,8 +32,9 @@ import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
  * <p>
  * TODO: trigger a rebuild on change.
  */
-public class OptionsPreferencePage extends PreferencePage implements
-        IWorkbenchPreferencePage {
+public class OptionsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+
+    private CheckboxTableViewer checkboxViewer;
 
     public OptionsPreferencePage() {
         super("jslint4java");
@@ -51,7 +60,56 @@ public class OptionsPreferencePage extends PreferencePage implements
         Label info = new Label(main, SWT.NONE);
         info.setText("nothing to see here");
         info.setFont(font);
+
+        createBooleansArea(main);
+
         return main;
+    }
+
+    private void createBooleansArea(Composite main) {
+        Font mainFont = main.getFont();
+        Composite booleansParent = new Composite(main, SWT.NONE);
+        booleansParent.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridLayout decoratorsLayout = new GridLayout();
+        decoratorsLayout.marginWidth = 0;
+        decoratorsLayout.marginHeight = 0;
+        booleansParent.setLayout(decoratorsLayout);
+        booleansParent.setFont(mainFont);
+
+        Label decoratorsLabel = new Label(booleansParent, SWT.NONE);
+        decoratorsLabel.setText("Toggleable options:");
+        decoratorsLabel.setFont(mainFont);
+
+        checkboxViewer = CheckboxTableViewer.newCheckList(booleansParent, SWT.SINGLE | SWT.TOP
+                | SWT.BORDER);
+        checkboxViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+        checkboxViewer.getTable().setFont(booleansParent.getFont());
+        checkboxViewer.setLabelProvider(new LabelProvider() {
+            @Override
+            public String getText(Object element) {
+                return ((Option) element).getDescription();
+            }
+        });
+        checkboxViewer.getTable().setFont(mainFont);
+
+        checkboxViewer.setContentProvider(new IStructuredContentProvider() {
+            public void dispose() {
+                // Nothing to do on dispose
+            }
+
+            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            }
+
+            public Object[] getElements(Object inputElement) {
+                // Make an entry for each option
+                Option[] elements = (Option[]) inputElement;
+                Option[] results = new Option[elements.length];
+                System.arraycopy(elements, 0, results, 0, elements.length);
+                Collections.sort(Arrays.asList(results));
+                return results;
+            }
+        });
+
     }
 
 }
