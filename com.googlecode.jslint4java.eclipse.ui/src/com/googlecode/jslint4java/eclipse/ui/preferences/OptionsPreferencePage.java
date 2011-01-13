@@ -179,6 +179,18 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         }
     }
 
+    @Override
+    protected void performDefaults() {
+        super.performDefaults();
+        for (Option o : booleanOptions()) {
+            boolean enabled = getPreferenceStore().getDefaultBoolean(nameOfPref(o));
+            checkboxViewer.setChecked(o, enabled);
+        }
+        for (FieldEditor fieldEditor : fieldEditors) {
+            fieldEditor.loadDefault();
+        }
+    }
+
     private void storeOtherPrefs() {
         for (FieldEditor fieldEditor : fieldEditors) {
             fieldEditor.store();
