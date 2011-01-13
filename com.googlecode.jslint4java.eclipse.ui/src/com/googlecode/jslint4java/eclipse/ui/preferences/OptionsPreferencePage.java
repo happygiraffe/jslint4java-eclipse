@@ -113,15 +113,15 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     }
 
     private void populateBooleansArea() {
-        List<Option> options = getBooleanOptions();
+        List<Option> options = booleanOptions();
         checkboxViewer.setInput(options);
         for (Option option : options) {
-            checkboxViewer.setChecked(option, valueOfBooleanPref(option));
+            checkboxViewer.setChecked(option, loadBooleanPref(option));
         }
     }
 
     /** Read the value of a boolean pref. */
-    private boolean valueOfBooleanPref(Option option) {
+    private boolean loadBooleanPref(Option option) {
         return getPreferenceStore().getBoolean(nameOfPref(option));
     }
 
@@ -130,7 +130,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         return option.getLowerName();
     }
 
-    private List<Option> getBooleanOptions() {
+    private List<Option> booleanOptions() {
         List<Option> options = new ArrayList<Option>();
         for (Option o : Option.values()) {
             if (o.getType() == Boolean.class) {
@@ -151,7 +151,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     }
 
     private void storeBooleanPrefs() {
-        for (Option option : getBooleanOptions()) {
+        for (Option option : booleanOptions()) {
             storeBooleanPref(option, checkboxViewer.getChecked(option));
         }
     }
