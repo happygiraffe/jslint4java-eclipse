@@ -16,7 +16,13 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
  * <li> {@link Option#EQEQEQ}
  * <li> {@link Option#UNDEF}
  * <li> {@link Option#WHITE}
- * <li>
+ * </ul>
+ * <p>
+ * And assign default values to:
+ * <ul>
+ * <li> {@link Option#INDENT}
+ * <li> {@link Option#MAXERR}
+ * </ul>
  */
 public class PreferencesInitializer extends AbstractPreferenceInitializer {
 
