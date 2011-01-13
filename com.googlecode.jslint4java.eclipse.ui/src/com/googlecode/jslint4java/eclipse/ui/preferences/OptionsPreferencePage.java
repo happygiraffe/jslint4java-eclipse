@@ -103,10 +103,6 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         main.setLayout(layout);
         main.setFont(font);
 
-        Label info = new Label(main, SWT.NONE);
-        info.setText("nothing to see here");
-        info.setFont(font);
-
         createBooleansArea(main);
         createOtherPrefsArea(main);
         populateBooleansArea();
