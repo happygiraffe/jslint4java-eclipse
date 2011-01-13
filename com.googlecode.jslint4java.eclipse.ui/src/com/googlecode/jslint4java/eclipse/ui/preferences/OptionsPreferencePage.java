@@ -140,4 +140,24 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         return options;
     }
 
+    @Override
+    public boolean performOk() {
+        if (super.performOk()) {
+            storeBooleanPrefs();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void storeBooleanPrefs() {
+        for (Option option : getBooleanOptions()) {
+            storeBooleanPref(option, checkboxViewer.getChecked(option));
+        }
+    }
+
+    private void storeBooleanPref(Option option, boolean enabled) {
+        getPreferenceStore().setValue(nameOfPref(option), enabled);
+    }
+
 }
