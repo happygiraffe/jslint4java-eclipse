@@ -46,6 +46,34 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         setPreferenceStore(JSLintUIPlugin.getDefault().getPreferenceStore());
     }
 
+    /** Add a {@link FieldEditor}. */
+    private void addFieldEditor(FieldEditor fieldEditor) {
+        fieldEditor.setPage(this);
+        fieldEditor.setPreferenceStore(getPreferenceStore());
+        fieldEditors.add(fieldEditor);
+    }
+
+    /** Create and add an {@link IntegerFieldEditor}. */
+    private void addIntegerFieldEditor(Composite parent, Option o) {
+        addFieldEditor(new IntegerFieldEditor(nameOfPref(o), o.getDescription(), parent));
+    }
+
+    /** Create and add a {@link StringFieldEditor}. */
+    private void addStringFieldEditor(Composite parent, Option o) {
+        addFieldEditor(new StringFieldEditor(nameOfPref(o), o.getDescription(), parent));
+    }
+
+    /** Return a list of Options whose type is {@link Boolean}. */
+    private List<Option> booleanOptions() {
+        List<Option> options = new ArrayList<Option>();
+        for (Option o : Option.values()) {
+            if (o.getType() == Boolean.class) {
+                options.add(o);
+            }
+        }
+        return options;
+    }
+
     private void createBooleansArea(Composite main) {
         Font mainFont = main.getFont();
         Composite booleansParent = new Composite(main, SWT.NONE);
@@ -122,45 +150,12 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         addStringFieldEditor(parent, Option.PREDEF);
     }
 
-    /** Create and add an {@link IntegerFieldEditor}. */
-    private void addIntegerFieldEditor(Composite parent, Option o) {
-        addFieldEditor(new IntegerFieldEditor(nameOfPref(o), o.getDescription(), parent));
-    }
-
-    /** Add a {@link FieldEditor}. */
-    private void addFieldEditor(FieldEditor fieldEditor) {
-        fieldEditor.setPage(this);
-        fieldEditor.setPreferenceStore(getPreferenceStore());
-        fieldEditors.add(fieldEditor);
-    }
-
-    /** Create and add a {@link StringFieldEditor}. */
-    private void addStringFieldEditor(Composite parent, Option o) {
-        addFieldEditor(new StringFieldEditor(nameOfPref(o), o.getDescription(), parent));
-    }
-
-    /** Fill in the values of the non-boolean preferences from the preferences store. */
-    private void populateOtherPrefsArea() {
-        for (FieldEditor fieldEditor : fieldEditors) {
-            fieldEditor.load();
-        }
-    }
-
     public void init(IWorkbench workbench) {
     }
 
     /** Provide a label for a given option. */
     private String labelForOption(Option o) {
         return String.format("%s [%s]", o.getDescription(), o.getLowerName());
-    }
-
-    /** Update checkboxes according to the values in the preference store. */
-    private void populateBooleansArea() {
-        List<Option> options = booleanOptions();
-        checkboxViewer.setInput(options);
-        for (Option option : options) {
-            checkboxViewer.setChecked(option, loadBooleanPref(option));
-        }
     }
 
     /** Read the value of a boolean pref. */
@@ -173,15 +168,19 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         return option.getLowerName();
     }
 
-    /** Return a list of Options whose type is {@link Boolean}. */
-    private List<Option> booleanOptions() {
-        List<Option> options = new ArrayList<Option>();
-        for (Option o : Option.values()) {
-            if (o.getType() == Boolean.class) {
-                options.add(o);
-            }
+    /** Set each checkbox to its default value. */
+    private void performBooleanDefaults() {
+        for (Option o : booleanOptions()) {
+            boolean enabled = getPreferenceStore().getDefaultBoolean(nameOfPref(o));
+            checkboxViewer.setChecked(o, enabled);
         }
-        return options;
+    }
+
+    @Override
+    protected void performDefaults() {
+        super.performDefaults();
+        performBooleanDefaults();
+        performOtherDefaults();
     }
 
     @Override
@@ -195,13 +194,6 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         }
     }
 
-    @Override
-    protected void performDefaults() {
-        super.performDefaults();
-        performBooleanDefaults();
-        performOtherDefaults();
-    }
-
     /** Load the default value for each non-boolean option. */
     private void performOtherDefaults() {
         for (FieldEditor fieldEditor : fieldEditors) {
@@ -209,19 +201,25 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         }
     }
 
-    /** Set each checkbox to its default value. */
-    private void performBooleanDefaults() {
-        for (Option o : booleanOptions()) {
-            boolean enabled = getPreferenceStore().getDefaultBoolean(nameOfPref(o));
-            checkboxViewer.setChecked(o, enabled);
+    /** Update checkboxes according to the values in the preference store. */
+    private void populateBooleansArea() {
+        List<Option> options = booleanOptions();
+        checkboxViewer.setInput(options);
+        for (Option option : options) {
+            checkboxViewer.setChecked(option, loadBooleanPref(option));
         }
     }
 
-    /** Store the values of the non-boolean preferences in the preferences store. */
-    private void storeOtherPrefs() {
+    /** Fill in the values of the non-boolean preferences from the preferences store. */
+    private void populateOtherPrefsArea() {
         for (FieldEditor fieldEditor : fieldEditors) {
-            fieldEditor.store();
+            fieldEditor.load();
         }
+    }
+
+    /** Store a single option value in the preference store. */
+    private void storeBooleanPref(Option option, boolean enabled) {
+        getPreferenceStore().setValue(nameOfPref(option), enabled);
     }
 
     /** Store the values of each checkbox in the preferences store. */
@@ -231,9 +229,11 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         }
     }
 
-    /** Store a single option value in the preference store. */
-    private void storeBooleanPref(Option option, boolean enabled) {
-        getPreferenceStore().setValue(nameOfPref(option), enabled);
+    /** Store the values of the non-boolean preferences in the preferences store. */
+    private void storeOtherPrefs() {
+        for (FieldEditor fieldEditor : fieldEditors) {
+            fieldEditor.store();
+        }
     }
 
 }
