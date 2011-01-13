@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -119,12 +120,24 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         parent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         parent.setLayout(new GridLayout());
 
-        // Use FieldEditors for the remaining prefs.
-        Option o = Option.INDENT;
-        FieldEditor fieldEditor = new IntegerFieldEditor(nameOfPref(o), o.getDescription(), parent);
+        addIntegerFieldEditor(parent, Option.INDENT);
+        addIntegerFieldEditor(parent, Option.MAXERR);
+        addIntegerFieldEditor(parent, Option.MAXLEN);
+        addStringFieldEditor(parent, Option.PREDEF);
+    }
+
+    private void addIntegerFieldEditor(Composite parent, Option o) {
+        addFieldEditor(new IntegerFieldEditor(nameOfPref(o), o.getDescription(), parent));
+    }
+
+    private void addFieldEditor(FieldEditor fieldEditor) {
         fieldEditor.setPage(this);
         fieldEditor.setPreferenceStore(getPreferenceStore());
         fieldEditors.add(fieldEditor);
+    }
+
+    private void addStringFieldEditor(Composite parent, Option o) {
+        addFieldEditor(new StringFieldEditor(nameOfPref(o), o.getDescription(), parent));
     }
 
     private void populateOtherPrefsArea() {
