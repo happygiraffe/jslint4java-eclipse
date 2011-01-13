@@ -3,6 +3,8 @@ package com.googlecode.jslint4java.eclipse.ui.preferences;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -35,6 +37,8 @@ import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
 public class OptionsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
     private CheckboxTableViewer checkboxViewer;
+
+    private final List<FieldEditor> fieldEditors = new ArrayList<FieldEditor>();
 
     public OptionsPreferencePage() {
         super("jslint4java");
@@ -103,9 +107,30 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         info.setFont(font);
 
         createBooleansArea(main);
+        createOtherPrefsArea(main);
         populateBooleansArea();
+        populateOtherPrefsArea();
 
         return main;
+    }
+
+    private void createOtherPrefsArea(Composite main) {
+        Composite parent = new Composite(main, SWT.NONE);
+        parent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        parent.setLayout(new GridLayout());
+
+        // Use FieldEditors for the remaining prefs.
+        Option o = Option.INDENT;
+        FieldEditor fieldEditor = new IntegerFieldEditor(nameOfPref(o), o.getDescription(), parent);
+        fieldEditor.setPage(this);
+        fieldEditor.setPreferenceStore(getPreferenceStore());
+        fieldEditors.add(fieldEditor);
+    }
+
+    private void populateOtherPrefsArea() {
+        for (FieldEditor fieldEditor : fieldEditors) {
+            fieldEditor.load();
+        }
     }
 
     public void init(IWorkbench workbench) {
