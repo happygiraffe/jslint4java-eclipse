@@ -172,9 +172,16 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     public boolean performOk() {
         if (super.performOk()) {
             storeBooleanPrefs();
+            storeOtherPrefs();
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void storeOtherPrefs() {
+        for (FieldEditor fieldEditor : fieldEditors) {
+            fieldEditor.store();
         }
     }
 
