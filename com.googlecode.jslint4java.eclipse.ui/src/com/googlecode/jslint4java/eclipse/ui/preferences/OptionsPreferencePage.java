@@ -40,6 +40,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     private CheckboxTableViewer checkboxViewer;
 
     private final List<FieldEditor> fieldEditors = new ArrayList<FieldEditor>();
+    private final List<Option> booleanOptions = booleanOptions();
 
     public OptionsPreferencePage() {
         super("jslint4java");
@@ -170,7 +171,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
 
     /** Set each checkbox to its default value. */
     private void performBooleanDefaults() {
-        for (Option o : booleanOptions()) {
+        for (Option o : booleanOptions) {
             boolean enabled = getPreferenceStore().getDefaultBoolean(nameOfPref(o));
             checkboxViewer.setChecked(o, enabled);
         }
@@ -203,9 +204,8 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
 
     /** Update checkboxes according to the values in the preference store. */
     private void populateBooleansArea() {
-        List<Option> options = booleanOptions();
-        checkboxViewer.setInput(options);
-        for (Option option : options) {
+        checkboxViewer.setInput(booleanOptions);
+        for (Option option : booleanOptions) {
             checkboxViewer.setChecked(option, loadBooleanPref(option));
         }
     }
@@ -224,7 +224,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
 
     /** Store the values of each checkbox in the preferences store. */
     private void storeBooleanPrefs() {
-        for (Option option : booleanOptions()) {
+        for (Option option : booleanOptions) {
             storeBooleanPref(option, checkboxViewer.getChecked(option));
         }
     }
