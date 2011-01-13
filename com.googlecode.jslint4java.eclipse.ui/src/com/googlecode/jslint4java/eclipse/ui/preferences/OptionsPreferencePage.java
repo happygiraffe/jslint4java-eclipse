@@ -62,8 +62,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         checkboxViewer.setLabelProvider(new LabelProvider() {
             @Override
             public String getText(Object element) {
-                Option o = (Option) element;
-                return String.format("%s [%s]", o.getDescription(), o.getLowerName());
+                return labelForOption((Option) element);
             }
         });
         checkboxViewer.getTable().setFont(mainFont);
@@ -110,6 +109,10 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     }
 
     public void init(IWorkbench workbench) {
+    }
+
+    private String labelForOption(Option o) {
+        return String.format("%s [%s]", o.getDescription(), o.getLowerName());
     }
 
     private void populateBooleansArea() {
