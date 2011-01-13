@@ -37,13 +37,15 @@ import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
  */
 public class OptionsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
+    private static final String PAGE_TITLE = "jslint4java";
+
     private CheckboxTableViewer checkboxViewer;
 
     private final List<FieldEditor> fieldEditors = new ArrayList<FieldEditor>();
     private final List<Option> booleanOptions = booleanOptions();
 
     public OptionsPreferencePage() {
-        super("jslint4java");
+        super(PAGE_TITLE);
         setPreferenceStore(JSLintUIPlugin.getDefault().getPreferenceStore());
     }
 
