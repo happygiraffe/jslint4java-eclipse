@@ -21,6 +21,8 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 public class PreferencesInitializer extends AbstractPreferenceInitializer {
 
     private static final int DEFAULT_INDENT = 4;
+    private static final int DEFAULT_MAXERR = 50;
+
     private final Set<Option> defaultEnable = EnumSet.of(Option.EQEQEQ, Option.UNDEF, Option.WHITE);
 
     @Override
@@ -31,6 +33,7 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
         }
         // Hand code these.
         node.putInt(Option.INDENT.getLowerName(), DEFAULT_INDENT);
+        node.putInt(Option.MAXERR.getLowerName(), DEFAULT_MAXERR);
     }
 
 }
