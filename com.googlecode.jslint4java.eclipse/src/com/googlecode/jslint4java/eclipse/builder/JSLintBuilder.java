@@ -33,6 +33,8 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
  */
 public class JSLintBuilder extends IncrementalProjectBuilder {
 
+    public static final String EXCLUDE_PATH_REGEXES_PREFERENCE = "exclude_path_regexes";
+
     private class JSLintDeltaVisitor implements IResourceDeltaVisitor {
         private final IProgressMonitor monitor;
 
@@ -170,7 +172,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
     private boolean excluded(IFile file) {
         String filePath = file.getFullPath().toString();
         IPreferencesService prefs = Platform.getPreferencesService();
-        String excludePaths = prefs.getString(JSLintPlugin.PLUGIN_ID, "exclude_path_regexes", "", null);
+        String excludePaths = prefs.getString(JSLintPlugin.PLUGIN_ID, EXCLUDE_PATH_REGEXES_PREFERENCE, "", null);
         if (excludePaths.length() > 0) {
             for (String path : excludePaths.split(",")) {
                 Pattern p = Pattern.compile(path);
