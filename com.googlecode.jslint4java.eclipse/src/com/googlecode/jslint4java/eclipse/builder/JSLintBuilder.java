@@ -131,7 +131,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
 
         IFile file = (IFile) resource;
-        if (!shoudLint(file)) {
+        if (!shouldLint(file)) {
             return;
         }
 
@@ -158,7 +158,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
     }
 
-    private boolean shoudLint(IFile file) {
+    private boolean shouldLint(IFile file) {
         return isJavaScript(file) && !excluded(file);
     }
 
