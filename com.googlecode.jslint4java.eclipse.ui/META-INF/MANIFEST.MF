@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: jslint4java User Interface plugin
 Bundle-SymbolicName: com.googlecode.jslint4java.eclipse.ui;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifer
 Bundle-Activator: com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin
 Bundle-Vendor: HappyGiraffe
 Require-Bundle: org.eclipse.ui,
