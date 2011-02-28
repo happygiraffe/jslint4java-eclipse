@@ -133,12 +133,16 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         }
 
         IFile file = (IFile) resource;
-        if (!shouldLint(file)) {
+        if (!isJavaScript(file)) {
             return;
         }
 
         // Clear out any existing problems.
         deleteMarkers(file);
+
+        if (excluded(file)) {
+            return;
+        }
 
         BufferedReader reader = null;
         try {
@@ -158,10 +162,6 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
         } finally {
             close(reader);
         }
-    }
-
-    private boolean shouldLint(IFile file) {
-        return isJavaScript(file) && !excluded(file);
     }
 
     /**
