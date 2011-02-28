@@ -22,6 +22,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.googlecode.jslint4java.Option;
+import com.googlecode.jslint4java.eclipse.builder.JSLintBuilder;
 import com.googlecode.jslint4java.eclipse.ui.JSLintUIPlugin;
 
 /**
@@ -151,6 +152,9 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         addIntegerFieldEditor(parent, Option.MAXERR);
         addIntegerFieldEditor(parent, Option.MAXLEN);
         addStringFieldEditor(parent, Option.PREDEF);
+        // Our own eclipse-specific preference.
+        addFieldEditor(new StringFieldEditor(JSLintBuilder.EXCLUDE_PATH_REGEXES_PREFERENCE,
+                "File patterns to exclude", parent));
     }
 
     public void init(IWorkbench workbench) {
