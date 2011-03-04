@@ -134,6 +134,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         layout.numColumns = 1;
         layout.marginHeight = 0;
         layout.marginWidth = 0;
+        layout.marginRight = 5;
         main.setLayout(layout);
         main.setFont(font);
 
