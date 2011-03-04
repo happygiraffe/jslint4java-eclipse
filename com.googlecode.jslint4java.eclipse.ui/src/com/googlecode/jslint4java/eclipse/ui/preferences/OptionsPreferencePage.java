@@ -81,6 +81,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     private void createBooleansArea(Composite main) {
         Font mainFont = main.getFont();
         Composite booleansParent = new Composite(main, SWT.NONE);
+        booleansParent.setData("booleansParent");
         booleansParent.setLayoutData(new GridData(GridData.FILL_BOTH));
         GridLayout decoratorsLayout = new GridLayout();
         decoratorsLayout.marginWidth = 0;
@@ -127,6 +128,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
         Font font = parent.getFont();
 
         Composite main = new Composite(parent, SWT.NULL);
+        main.setData("main");
         main.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         GridLayout layout = new GridLayout();
         layout.numColumns = 1;
@@ -146,6 +148,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
     private void createOtherPrefsArea(Composite main) {
         Composite parent = new Composite(main, SWT.NONE);
         parent.setLayoutData(new GridData());
+        parent.setData("other prefs");
         parent.setLayout(new GridLayout());
 
         addIntegerFieldEditor(parent, Option.INDENT);
