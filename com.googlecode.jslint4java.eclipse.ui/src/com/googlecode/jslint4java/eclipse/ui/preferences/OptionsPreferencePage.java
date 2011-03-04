@@ -147,8 +147,8 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
 
     private void createOtherPrefsArea(Composite main) {
         Composite parent = new Composite(main, SWT.NONE);
-        parent.setLayoutData(new GridData());
         parent.setData("other prefs");
+        parent.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, false));
         parent.setLayout(new GridLayout());
 
         addIntegerFieldEditor(parent, Option.INDENT);
