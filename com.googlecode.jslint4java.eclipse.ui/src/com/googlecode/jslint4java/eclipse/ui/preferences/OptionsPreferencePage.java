@@ -95,7 +95,7 @@ public class OptionsPreferencePage extends PreferencePage implements IWorkbenchP
 
         checkboxViewer = CheckboxTableViewer.newCheckList(booleansParent, SWT.SINGLE | SWT.TOP
                 | SWT.BORDER);
-        checkboxViewer.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+        checkboxViewer.getTable().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         checkboxViewer.getTable().setFont(booleansParent.getFont());
         checkboxViewer.setLabelProvider(new LabelProvider() {
             @Override
