@@ -88,6 +88,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
 
     public JSLintBuilder() {
         lintProvider.init();
+        excluder.init();
     }
 
     private void addMarker(IFile file, Issue issue) {

@@ -23,7 +23,7 @@ public class Excluder {
 
     private final List<Pattern> excludes = new ArrayList<Pattern>();
 
-    public Excluder() {
+    public void init() {
         readPref();
         monitor();
     }
@@ -70,6 +70,7 @@ public class Excluder {
 
     private void readPref() {
         IPreferencesService prefs = Platform.getPreferencesService();
-        parsePref(prefs.getString(JSLintPlugin.PLUGIN_ID, EXCLUDE_PATH_REGEXES_PREFERENCE, "", null));
+        parsePref(prefs
+                .getString(JSLintPlugin.PLUGIN_ID, EXCLUDE_PATH_REGEXES_PREFERENCE, "", null));
     }
 }
