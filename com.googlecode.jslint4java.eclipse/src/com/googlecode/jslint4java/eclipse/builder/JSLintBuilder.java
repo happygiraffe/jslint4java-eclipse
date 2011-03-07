@@ -5,7 +5,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -19,8 +18,6 @@ import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.IPreferencesService;
 
 import com.googlecode.jslint4java.Issue;
 import com.googlecode.jslint4java.JSLint;
@@ -87,6 +84,7 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
             + ".javaScriptLintProblem";
 
     private final JSLintProvider lintProvider = new JSLintProvider();
+    private final Excluder excluder = new Excluder();
 
     public JSLintBuilder() {
         lintProvider.init();
@@ -168,20 +166,8 @@ public class JSLintBuilder extends IncrementalProjectBuilder {
      * Is {@code file} explicitly excluded? Check against a list of regexes in
      * the <i>exclude_path_regexes</i> preference.
      */
-    // TODO: precompute the regex list.
     private boolean excluded(IFile file) {
-        String filePath = file.getFullPath().toString();
-        IPreferencesService prefs = Platform.getPreferencesService();
-        String excludePaths = prefs.getString(JSLintPlugin.PLUGIN_ID, EXCLUDE_PATH_REGEXES_PREFERENCE, "", null);
-        if (excludePaths.length() > 0) {
-            for (String path : excludePaths.split(",")) {
-                Pattern p = Pattern.compile(path);
-                if (p.matcher(filePath).find()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return excluder.isExcluded(file);
     }
 
     private boolean isJavaScript(IFile file) {
