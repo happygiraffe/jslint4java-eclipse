@@ -47,7 +47,7 @@ public class Excluder {
     }
 
     private void monitor() {
-        IEclipsePreferences scope = new InstanceScope().getNode(JSLintPlugin.PLUGIN_ID);
+        IEclipsePreferences scope = InstanceScope.INSTANCE.getNode(JSLintPlugin.PLUGIN_ID);
         scope.addPreferenceChangeListener(new IPreferenceChangeListener() {
             public void preferenceChange(PreferenceChangeEvent ev) {
                 if (ev.getKey().equals(EXCLUDE_PATH_REGEXES_PREFERENCE)) {
