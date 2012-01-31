@@ -13,7 +13,7 @@ import com.googlecode.jslint4java.eclipse.JSLintPlugin;
 /**
  * Set up the default preferences. By default,we enable:
  * <ul>
- * <li> {@link Option#EQEQEQ}
+ * <li> {@link Option#EQEQ}
  * <li> {@link Option#UNDEF}
  * <li> {@link Option#WHITE}
  * </ul>
@@ -29,11 +29,11 @@ public class PreferencesInitializer extends AbstractPreferenceInitializer {
     private static final int DEFAULT_INDENT = 4;
     private static final int DEFAULT_MAXERR = 50;
 
-    private final Set<Option> defaultEnable = EnumSet.of(Option.EQEQEQ, Option.UNDEF, Option.WHITE);
+    private final Set<Option> defaultEnable = EnumSet.of(Option.EQEQ, Option.UNDEF, Option.WHITE);
 
     @Override
     public void initializeDefaultPreferences() {
-        IEclipsePreferences node = new DefaultScope().getNode(JSLintPlugin.PLUGIN_ID);
+        IEclipsePreferences node = DefaultScope.INSTANCE.getNode(JSLintPlugin.PLUGIN_ID);
         for (Option o : defaultEnable) {
             node.putBoolean(o.getLowerName(), true);
         }
