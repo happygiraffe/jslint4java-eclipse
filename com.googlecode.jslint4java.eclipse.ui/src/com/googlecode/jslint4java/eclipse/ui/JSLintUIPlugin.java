@@ -67,8 +67,7 @@ public class JSLintUIPlugin extends AbstractUIPlugin {
     public IPreferenceStore getPreferenceStore() {
         // Create the preference store lazily.
         if (preferenceStore == null) {
-            preferenceStore = new ScopedPreferenceStore(new InstanceScope(), JSLintPlugin.PLUGIN_ID);
-
+            preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, JSLintPlugin.PLUGIN_ID);
         }
         return preferenceStore;
     }

@@ -28,7 +28,7 @@ public class JSLintProvider {
      * that a new JSLint will be created and configured on the next request.
      */
     public void init() {
-        IEclipsePreferences x = new InstanceScope().getNode(JSLintPlugin.PLUGIN_ID);
+        IEclipsePreferences x = InstanceScope.INSTANCE.getNode(JSLintPlugin.PLUGIN_ID);
         x.addPreferenceChangeListener(new IPreferenceChangeListener() {
             public void preferenceChange(PreferenceChangeEvent ev) {
                 jsLint = null;
