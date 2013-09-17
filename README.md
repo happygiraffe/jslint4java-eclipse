@@ -9,8 +9,7 @@ TODO
 ----
 
  * Automatically perform a full rebuild on a preferences change.
- * Eclipse update site.
+ * Location for Eclipse update site.
  * Help pages.
- * Investigate Tycho for a maven build.
 
 [jslint4java]: http://code.google.com/p/jslint4java/
